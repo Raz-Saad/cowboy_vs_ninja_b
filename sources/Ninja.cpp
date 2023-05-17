@@ -10,11 +10,11 @@ namespace ariel
     }
     void Ninja::move(Charachter *other)
     {
-        this->setLocation(Point::moveTowards(this->getLocation(),other->getLocation(),speed));
+        this->setLocation(Point::moveTowards(this->getLocation(), other->getLocation(), speed));
     }
     void Ninja::slash(Charachter *other)
     {
-        if (this->isAlive() && this->distance(other)<=1)
+        if (this->isAlive() && this->distance(other) <= 1)
         {
             other->hit(40);
         }
@@ -27,5 +27,9 @@ namespace ariel
     int Ninja::getSpeed()
     {
         return speed;
+    }
+    string Ninja::print()
+    {
+        return "N "+Charachter::print();
     }
 }

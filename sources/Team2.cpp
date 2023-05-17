@@ -18,9 +18,9 @@ namespace ariel
     {
     }
 
-    string Team2::print()
+    void Team2::print()
     {
-        return "nothing";
+        
     }
 
 }

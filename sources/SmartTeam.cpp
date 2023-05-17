@@ -18,9 +18,9 @@ namespace ariel
     {
     }
 
-    string SmartTeam::print()
+    void SmartTeam::print()
     {
-        return "nothing";
+        
     }
 
 }

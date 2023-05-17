@@ -93,9 +93,25 @@ namespace ariel
         return alive_counter;
     }
 
-    string Team::print()
+    void Team::print()
     {
-        return "nothing team";
+        // First print all the cowboys
+        for (int i = 0; i < get_amount_of_members(); i++)
+        {
+            if (Cowboy *cowboy = dynamic_cast<Cowboy *>(getGroup()[i]))
+            {
+                cout << cowboy->print() << endl;
+            }
+        }
+
+        // Seond print all the ninjas
+        for (int i = 0; i < get_amount_of_members(); i++)
+        {
+            if (Ninja *ninja = dynamic_cast<Ninja *>(getGroup()[i]))
+            {
+                cout << ninja->print() << endl;
+            }
+        }
     }
 
     int Team::get_amount_of_members() // returns how many members are in the group at the moment

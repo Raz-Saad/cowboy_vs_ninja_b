@@ -19,7 +19,7 @@ namespace ariel
         void add(Charachter *charachter);      // adds a Charachter to the team
         virtual void attack(Team *Enemy_Team); // attacks other team
         int stillAlive();                      // returns how many members in the gorup are alive
-        virtual string print();
+        virtual void print();
         int get_amount_of_members();                          // returns how many members are in the group at the moment
         Charachter **getGroup();                              // return a pointer to the group
         Charachter *Closest_To_Leader(Team *other, int flag); // return the closest charachter to the leader

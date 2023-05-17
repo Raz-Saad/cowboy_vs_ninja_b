@@ -38,4 +38,8 @@ namespace ariel
     {
         return ammo_amount;
     }
+    string Cowboy::print()
+    {
+        return "C " + Charachter::print();
+    }
 }

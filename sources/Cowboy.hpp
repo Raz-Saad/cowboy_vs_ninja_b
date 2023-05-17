@@ -1,5 +1,6 @@
 #pragma once
 #include "Charachter.hpp"
+#include <string>
 using namespace std;
 
 namespace ariel
@@ -14,6 +15,7 @@ namespace ariel
         bool hasboolets();                   // return true if ammo >0
         void reload();                       // insert 6 bullets into ammo_amount
         int getAmmo_amount();                // return ammo_amount
+        string print();                      // add C to the print of charachter
     };
 
 }

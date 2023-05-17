@@ -11,6 +11,6 @@ namespace ariel
         Team2(Charachter *leader); // constructor ,getting a pointer of a leader of the team
         ~Team2();                  // destructor
         void attack(Team *other);  // attacks other team
-        string print();
+        void print();
     };
 }
