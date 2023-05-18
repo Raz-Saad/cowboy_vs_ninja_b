@@ -7,7 +7,7 @@ using namespace std;
 
 namespace ariel
 {
-    Team::Team(Charachter *leader) // constructor ,getting a pointer of a leader of the team
+    Team::Team(Character *leader) // constructor ,getting a pointer of a leader of the team
     {
         if (leader->getIn_Team())
         {
@@ -33,9 +33,9 @@ namespace ariel
         leader = NULL;
     }
 
-    void Team::add(Charachter *charachter) // adds a Charachter to the team
+    void Team::add(Character *character) // adds a Charachter to the team
     {
-        if (charachter->getIn_Team())
+        if (character->getIn_Team())
         {
             throw std::runtime_error("this charachter is already in a team");
         }
@@ -43,12 +43,12 @@ namespace ariel
         {
             if (amount_of_members < 10)
             {
-                group[amount_of_members++] = charachter;
-                charachter->setIn_Team(true);
+                group[amount_of_members++] = character;
+                character->setIn_Team(true);
             }
             else
             {
-                throw std::runtime_error("can not add more than 10 charachter to a team");
+                throw std::runtime_error("can not add more than 10 character to a team");
             }
         }
     }
@@ -119,15 +119,15 @@ namespace ariel
         return amount_of_members;
     }
 
-    Charachter **Team::getGroup()
+    Character **Team::getGroup()
     {
         return group;
     }
 
-    Charachter *Team::Closest_To_Leader(Team *other, int flag) // flag =1 get new leader , flag=0 find closet enemy
+    Character *Team::Closest_To_Leader(Team *other, int flag) // flag =1 get new leader , flag=0 find closet enemy
     {
         double min = INT_MAX;
-        Charachter *closet_ch = NULL;
+        Character *closet_ch = NULL;
         if (flag)
         {
             if (other == NULL || other->get_amount_of_members() == 1 || other->stillAlive() == 0)
@@ -168,7 +168,7 @@ namespace ariel
 
     void Team::Attack_Enemy(Team *Enemy_Team)
     {
-        Charachter *enemy_to_attack = Closest_To_Leader(Enemy_Team, 0); // get the closet enemy to our leader
+        Character *enemy_to_attack = Closest_To_Leader(Enemy_Team, 0); // get the closet enemy to our leader
 
         // First all the cowboys attack
         for (int i = 0; i < get_amount_of_members(); i++)
@@ -223,5 +223,15 @@ namespace ariel
                 }
             }
         }
+    }
+
+
+    Character *Team::getLeader()
+    {
+        return leader;
+    }
+    void Team::setLeader(Character *leader)
+    {
+        this->leader=leader;
     }
 }

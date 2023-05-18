@@ -1,21 +1,21 @@
 #pragma once
-#include "Charachter.hpp"
+#include "Character.hpp"
 #include <string>
 using namespace std;
 
 namespace ariel
 {
-    class Ninja : public Charachter
+    class Ninja : public Character
     {
         int speed;
 
     public:
         Ninja(string name, Point location, int HitPoints, int speed); // constructor
-        void move(Charachter *other);                                 // moves to the other characther the distance that queal to the speed
-        void slash(Charachter *other);                                // if the ninja is alive and the enemy is 1 meter away from the ninja
+        void move(Character *other);                                 // moves to the other Character the distance that queal to the speed
+        void slash(Character *other);                                // if the ninja is alive and the enemy is 1 meter away from the ninja
                                                                       //, the ninja does 40 dmg
         int getSpeed();                                               // return speed
-        string print();                                               // add N to the print of charachter
+        string print();                                               // add N to the print of Character
     };
 
 }

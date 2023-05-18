@@ -1,5 +1,6 @@
 #include "Point.hpp"
 #include <cmath>
+#include <stdexcept>
 using namespace std;
 
 namespace ariel
@@ -34,7 +35,11 @@ namespace ariel
 
     Point Point::moveTowards(Point src, Point dst, double dis)
     {
-        double distance = std::sqrt(std::pow(dst.x_p - src.x_p, 2) + std::pow(dst.y_p - src.y_p, 2));
+        if (dis < 0)
+        {
+            throw std::invalid_argument("distance to move is lower than 0");
+        }
+        double distance = src.distance(dst);
 
         if (distance <= dis)
         {

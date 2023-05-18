@@ -5,7 +5,7 @@ using namespace std;
 
 namespace ariel
 {
-    SmartTeam::SmartTeam(Charachter *leader) : Team(leader) // constructor ,getting a pointer of a leader of the team
+    SmartTeam::SmartTeam(Character *leader) : Team(leader) // constructor ,getting a pointer of a leader of the team
     {
         add(leader);
     }
