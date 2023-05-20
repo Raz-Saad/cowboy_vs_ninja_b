@@ -25,15 +25,16 @@ namespace ariel
         {
             throw std::runtime_error("ninja can not slash himself");
         }
-        else if (this->isAlive() && other->isAlive() && this->distance(other) <= 1)
+
+        if (this->distance(other) <= 1)
         {
-            other->hit(40);
-        }
-        else
-        {
-            throw std::runtime_error("can not slash,ninja is dead / enemy is dead / the enemy is too far");
+            if (this->isAlive() && other->isAlive())
+                other->hit(40);
+            else
+                throw std::runtime_error("can not slash,ninja is dead or enemy is dead ");
         }
     }
+
     // return speed
     int Ninja::getSpeed()
     {

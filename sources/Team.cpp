@@ -9,6 +9,7 @@ namespace ariel
 {
     Team::Team(Character *leader) // constructor ,getting a pointer of a leader of the team
     {
+        group.fill(nullptr); // initialize array with null
         if (leader->getIn_Team())
         {
             throw std::runtime_error("this charachter is already in a team");
@@ -22,12 +23,13 @@ namespace ariel
 
     Team::~Team() // destructor
     {
-        for (int i = 0; i < amount_of_members; i++)
+        for (size_t i = 0; i < amount_of_members; i++)
         {
-            if (group[i] != NULL)
+            if (group[i] != nullptr)
             {
+                group[i]->setIn_Team(false);
                 delete group[i];
-                group[i] = NULL;
+                group[i] = nullptr;
             }
         }
         leader = NULL;
@@ -35,26 +37,31 @@ namespace ariel
 
     void Team::add(Character *character) // adds a Charachter to the team
     {
-        if (character->getIn_Team())
+
+        if (amount_of_members < 10)
         {
-            throw std::runtime_error("this charachter is already in a team");
-        }
-        else
-        {
-            if (amount_of_members < 10)
+            if (character->getIn_Team())
             {
-                group[amount_of_members++] = character;
-                character->setIn_Team(true);
+                throw std::runtime_error("this charachter is already in a team");
             }
             else
             {
-                throw std::runtime_error("can not add more than 10 character to a team");
+                character->setIn_Team(true);
+                group[amount_of_members++] = character;
             }
+        }
+        else
+        {
+            throw std::runtime_error("can not add more than 10 character to a team");
         }
     }
 
     void Team::attack(Team *Enemy_Team) // attacks other team
     {
+        if (Enemy_Team == NULL)
+        {
+            throw std::invalid_argument("invalid team pointer, NULL");
+        }
         if (this->stillAlive() == 0 || Enemy_Team->stillAlive() == 0)
         {
             throw std::runtime_error("can not attack all the members in the group are dead");
@@ -79,7 +86,7 @@ namespace ariel
         int alive_counter = 0; // counts how many charachters in the team are alive
         if (amount_of_members > 0)
         {
-            for (int i = 0; i < amount_of_members; i++)
+            for (size_t i = 0; i < amount_of_members; i++)
             {
                 if (group[i]->isAlive())
                     alive_counter++;
@@ -96,7 +103,7 @@ namespace ariel
     void Team::print()
     {
         // First print all the cowboys
-        for (int i = 0; i < get_amount_of_members(); i++)
+        for (size_t i = 0; i < get_amount_of_members(); i++)
         {
             if (Cowboy *cowboy = dynamic_cast<Cowboy *>(getGroup()[i]))
             {
@@ -105,7 +112,7 @@ namespace ariel
         }
 
         // Seond print all the ninjas
-        for (int i = 0; i < get_amount_of_members(); i++)
+        for (size_t i = 0; i < get_amount_of_members(); i++)
         {
             if (Ninja *ninja = dynamic_cast<Ninja *>(getGroup()[i]))
             {
@@ -114,12 +121,14 @@ namespace ariel
         }
     }
 
-    int Team::get_amount_of_members() // returns how many members are in the group at the moment
+    // returns how many members are in the group at the moment
+    int Team::get_amount_of_members()
     {
         return amount_of_members;
     }
 
-    Character **Team::getGroup()
+    // return a refernce to the group
+    array<Character *, TEAM_SIZE> &Team::getGroup()
     {
         return group;
     }
@@ -136,7 +145,7 @@ namespace ariel
             }
 
             // the leader will always be at the first cell in the array
-            for (int i = 1; i < other->get_amount_of_members(); i++)
+            for (size_t i = 1; i < other->get_amount_of_members(); i++)
             {
                 if ((leader->distance(other->getGroup()[i])) < min && (other->getGroup()[i]->isAlive()))
                 { // checking if the memeber is closer to the leader and also if he is alive
@@ -153,7 +162,7 @@ namespace ariel
                 throw std::invalid_argument("invalid input,TEAM"); /// to fix the text???????
             }
 
-            for (int i = 0; i < other->get_amount_of_members(); i++)
+            for (size_t i = 0; i < other->get_amount_of_members(); i++)
             {
                 if ((leader->distance(other->getGroup()[i])) < min && (other->getGroup()[i]->isAlive()))
                 { // checking if the memeber is closer to the leader and also if he is alive
@@ -171,7 +180,7 @@ namespace ariel
         Character *enemy_to_attack = Closest_To_Leader(Enemy_Team, 0); // get the closet enemy to our leader
 
         // First all the cowboys attack
-        for (int i = 0; i < get_amount_of_members(); i++)
+        for (size_t i = 0; i < get_amount_of_members(); i++)
         {
             if (enemy_to_attack->isAlive() == false)
             {
@@ -198,7 +207,7 @@ namespace ariel
         }
 
         // Seond all the ninjas attack
-        for (int i = 0; i < get_amount_of_members(); i++)
+        for (size_t i = 0; i < get_amount_of_members(); i++)
         {
             if (enemy_to_attack->isAlive() == false)
             {
@@ -225,13 +234,12 @@ namespace ariel
         }
     }
 
-
     Character *Team::getLeader()
     {
         return leader;
     }
     void Team::setLeader(Character *leader)
     {
-        this->leader=leader;
+        this->leader = leader;
     }
 }

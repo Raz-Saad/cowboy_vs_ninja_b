@@ -144,8 +144,10 @@ TEST_SUITE("Classes initialization tests and Team modification( add(),stillAlive
         auto ninja = create_yninja(2, 3);
         Team team{cowboy};
         CHECK_EQ(team.stillAlive(), 1);
-
+        //ninja->setIn_Team(false);
+        cout<<ninja->getIn_Team()<<endl;
         Team2 team2{ninja};
+        
         CHECK_EQ(team2.stillAlive(), 1);
     }
 
@@ -154,6 +156,7 @@ TEST_SUITE("Classes initialization tests and Team modification( add(),stillAlive
         auto captain2 = create_yninja();
 
         Team team1{captain1};
+        cout<<"hereeee"<<endl;
         Team2 team2{captain2};
 
         // Every addition should rise the value returned by stillAlive()

@@ -9,8 +9,7 @@ namespace ariel
 
     public:
         SmartTeam(Character *leader); // constructor ,getting a pointer of a leader of the team
-        ~SmartTeam();                  // destructor
-        void attack(Team *other);      // attacks other team
-        void print();
+        void attack(Team *other) override;      // attacks other team
+        void print() override;
     };
 }

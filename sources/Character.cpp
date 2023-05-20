@@ -10,6 +10,7 @@ namespace ariel
         this->location = location;
         this->name = name;
         this->HitPoints = HitPoints;
+        this->in_team = false;
     }
     Character::Character()
     {

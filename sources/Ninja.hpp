@@ -15,7 +15,7 @@ namespace ariel
         void slash(Character *other);                                // if the ninja is alive and the enemy is 1 meter away from the ninja
                                                                       //, the ninja does 40 dmg
         int getSpeed();                                               // return speed
-        string print();                                               // add N to the print of Character
+        string print() override;                                               // add N to the print of Character
     };
 
 }

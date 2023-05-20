@@ -10,10 +10,6 @@ namespace ariel
         add(leader);
     }
 
-    SmartTeam::~SmartTeam() // destructor
-    {
-    }
-
     void SmartTeam::attack(Team *other) // attacks other team
     {
     }

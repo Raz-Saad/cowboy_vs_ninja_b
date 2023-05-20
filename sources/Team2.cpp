@@ -8,7 +8,7 @@ namespace ariel
 {
     Team2::Team2(Character *leader) : Team(leader) // constructor ,getting a pointer of a leader of the team
     {
-        add(leader);
+        // add(leader);
     }
 
     // Team2::~Team2() // destructor
@@ -17,6 +17,11 @@ namespace ariel
 
     void Team2::attack(Team *Enemy_Team) // attacks other team
     {
+        if (Enemy_Team == NULL)
+        {
+            throw std::invalid_argument("invalid team pointer, NULL");
+        }
+
         if (this->stillAlive() == 0 || Enemy_Team->stillAlive() == 0)
         {
             throw std::runtime_error("can not attack all the members in the group are dead");
@@ -39,7 +44,7 @@ namespace ariel
     void Team2::print()
     {
         // First print all the cowboys
-        for (int i = 0; i < get_amount_of_members(); i++)
+        for (size_t i = 0; i < get_amount_of_members(); i++)
         {
             if (Cowboy *cowboy = dynamic_cast<Cowboy *>(getGroup()[i]))
             {
@@ -57,7 +62,7 @@ namespace ariel
         Character *enemy_to_attack = Closest_To_Leader(Enemy_Team, 0); // get the closet enemy to our leader
 
         // First all the cowboys attack
-        for (int i = 0; i < get_amount_of_members(); i++)
+        for (size_t i = 0; i < get_amount_of_members(); i++)
         {
             if (enemy_to_attack->isAlive() == false)
             {

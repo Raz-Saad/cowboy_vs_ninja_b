@@ -14,14 +14,17 @@ namespace ariel
         {
             throw std::runtime_error("coybow can not shot himself");
         }
-        else if (this->isAlive() && hasboolets() && other->isAlive())
+        if (hasboolets())
         {
-            other->hit(10);
-            ammo_amount--;
-        }
-        else
-        {
-            throw std::runtime_error("can not shoot, the cowboy is dead or out of ammo");
+            if (this->isAlive() && other->isAlive())
+            {
+                other->hit(10);
+                ammo_amount--;
+            }
+            else
+            {
+                throw std::runtime_error("can not shoot, the cowboy is dead or out of ammo");
+            }
         }
     }
     // shot other Character if cowboy isalive, does 10dmg to him and ammo -1

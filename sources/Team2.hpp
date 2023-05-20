@@ -10,8 +10,8 @@ namespace ariel
     public:
         Team2(Character *leader); // constructor ,getting a pointer of a leader of the team
         // ~Team2();                  // destructor
-        void attack(Team *Enemy_Team);  // attacks other team
-        void print();
-        void Attack_Enemy(Team *Enemy_Team);
+        void attack(Team *Enemy_Team) override;  // attacks other team
+        void print() override;
+        void Attack_Enemy(Team *Enemy_Team) override;
     };
 }
