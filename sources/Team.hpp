@@ -12,8 +12,9 @@ namespace ariel
     class Team
     {
         array<Character *, TEAM_SIZE> group; // a team of ninjas and cowboys
-        Character *leader = NULL;
-        size_t amount_of_members = 0;
+        Character *leader = NULL;            // the leader of the team
+        size_t amount_of_members = 0;        // amount of memebers in the team
+        bool is_Ninja_in_Team = false;       // true if there is a ninja in our team
 
     public:
         Team(Character *leader);               // constructor ,getting a pointer of a leader of the team
@@ -28,6 +29,11 @@ namespace ariel
         virtual void Attack_Enemy(Team *Enemy_Team);         // attack enemies on the enemy team
         Character *getLeader();                              // return the teams leader
         void setLeader(Character *leader);                   // set a leader
+
+        // functions for SmartTeam
+        bool getIs_Ninja();                          // retrun if there is a ninja in our team
+        Character *Most_Low_HP(Team *other);         // return the most low hp member in the group
+        Character *Closest_Enemy_Ninja(Team *other); // return the Closest enemy ninja to our team
 
         // constructors that I use becuase of tidy
         Team(const Team &) = delete;            // Copy constructor

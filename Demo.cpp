@@ -31,7 +31,6 @@ int main()
 
    Team team_A(tom);
    team_A.add(new YoungNinja("Yogi", Point(64, 57)));
-
    // Team b(tom); should throw tom is already in team a
 
    Team team_B(sushi);

@@ -48,6 +48,10 @@ namespace ariel
             {
                 character->setIn_Team(true);
                 group[amount_of_members++] = character;
+                if (dynamic_cast<Ninja *>(character))
+                {
+                    is_Ninja_in_Team = true;
+                }
             }
         }
         else
@@ -141,7 +145,7 @@ namespace ariel
         {
             if (other == NULL || other->get_amount_of_members() == 1 || other->stillAlive() == 0)
             {
-                throw std::invalid_argument("invalid input,TEAM"); /// to fix the text???????
+                throw std::invalid_argument("invalid input, in change leader function"); /// to fix the text???????
             }
 
             // the leader will always be at the first cell in the array
@@ -164,7 +168,7 @@ namespace ariel
 
             for (size_t i = 0; i < other->get_amount_of_members(); i++)
             {
-                if ((leader->distance(other->getGroup()[i])) < min && (other->getGroup()[i]->isAlive()))
+                if ((other->getGroup()[i]->isAlive()) && (leader->distance(other->getGroup()[i])) < min)
                 { // checking if the memeber is closer to the leader and also if he is alive
                     min = leader->distance(other->getGroup()[i]);
                     closet_ch = other->getGroup()[i];
@@ -238,8 +242,72 @@ namespace ariel
     {
         return leader;
     }
+
     void Team::setLeader(Character *leader)
     {
         this->leader = leader;
+    }
+
+    bool Team::getIs_Ninja()
+    {
+        return is_Ninja_in_Team;
+    }
+
+    // return the most low hp member in the group
+    Character *Team::Most_Low_HP(Team *other)
+    {
+
+        if (other == NULL || other->stillAlive() == 0 || other->get_amount_of_members() > 0)
+        {
+            throw std::invalid_argument("invalid input");
+        }
+        double min_hp = INT_MAX;
+        Character *lowest_hp = NULL;
+
+        for (size_t i = 0; i < other->get_amount_of_members(); i++)
+        {
+            if ((other->getGroup()[i]->isAlive()) && (other->getGroup()[i]->geHitPoints() < min_hp))
+            {
+                lowest_hp = other->getGroup()[i];
+                min_hp = other->getGroup()[i]->geHitPoints();
+            }
+        }
+
+        return lowest_hp;
+    }
+
+    // return the Closest enemy ninja to our team
+    Character *Team::Closest_Enemy_Ninja(Team *other)
+    {
+        if (other == NULL || other->stillAlive() == 0 || other->get_amount_of_members() > 0)
+        {
+            throw std::invalid_argument("invalid input");
+        }
+
+        double temp_distance; //for holding the current ninja distance
+        double min_distance = INT_MAX;
+        Character *closest_ninja = NULL;
+
+        for (size_t i = 0; i < amount_of_members; i++)
+        {
+            for (size_t j = 0; j < other->get_amount_of_members(); j++)
+            {
+                if (Ninja *ninja = dynamic_cast<Ninja *>(other->getGroup()[j]))
+                {
+                    if (ninja->isAlive())
+                    {
+                        temp_distance = this->group[i]->distance(ninja);
+
+                        if (temp_distance < min_distance)
+                        { // if the distance of this current ninja is lower than the previous ninja, update the closet ninja
+                            closest_ninja = ninja;
+                            min_distance = temp_distance;
+                        }
+                    }
+                }
+            }
+        }
+
+        return closest_ninja;
     }
 }
