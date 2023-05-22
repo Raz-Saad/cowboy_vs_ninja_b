@@ -14,26 +14,25 @@ namespace ariel
         array<Character *, TEAM_SIZE> group; // a team of ninjas and cowboys
         Character *leader = NULL;            // the leader of the team
         size_t amount_of_members = 0;        // amount of memebers in the team
-        bool is_Ninja_in_Team = false;       // true if there is a ninja in our team
+        size_t amount_of_cowboys = 0;        // amount of cowboys in the team
+        size_t amount_of_ninjas = 0;         // amount of ninjas in the team
 
     public:
         Team(Character *leader);               // constructor ,getting a pointer of a leader of the team
         virtual ~Team();                       // destructor
-        void add(Character *character);        // adds a Character to the team
+        void add(Character *character);        // adds a character to the team
         virtual void attack(Team *Enemy_Team); // attacks other team
         int stillAlive();                      // returns how many members in the gorup are alive
         virtual void print();
-        int get_amount_of_members();                         // returns how many members are in the group at the moment
+        size_t get_amount_of_members();                      // returns how many members are in the group at the moment
         array<Character *, TEAM_SIZE> &getGroup();           // return a refernce to the group
-        Character *Closest_To_Leader(Team *other, int flag); // return the closest Character to the leader
-        virtual void Attack_Enemy(Team *Enemy_Team);         // attack enemies on the enemy team
+        Character *Closest_To_Leader(Team *other, int flag); // return the closest character to the leader
+        virtual void Attack_Enemy(Team *Enemy_Team);         // the attack logic funcion, first attack with cowboys then with ninjas
         Character *getLeader();                              // return the teams leader
         void setLeader(Character *leader);                   // set a leader
-
-        // functions for SmartTeam
-        bool getIs_Ninja();                          // retrun if there is a ninja in our team
-        Character *Most_Low_HP(Team *other);         // return the most low hp member in the group
-        Character *Closest_Enemy_Ninja(Team *other); // return the Closest enemy ninja to our team
+        bool Alive_ninjas();                                 // return true if we have an alive ninja in our team
+        size_t get_amount_of_cowboys();                      // returns how many cowboys are in the group at the moment
+        size_t get_amount_of_ninjas();                       // returns how many ninjas are in the group at the moment
 
         // constructors that I use becuase of tidy
         Team(const Team &) = delete;            // Copy constructor

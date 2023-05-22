@@ -4,10 +4,13 @@ using namespace std;
 
 namespace ariel
 {
+    // constructor
     Ninja::Ninja(string name, Point location, int HitPoints, int speed) : Character(name, location, HitPoints) // constructor
     {
         this->speed = speed;
     }
+
+    // moves to the other Character the distance that queal to the speed
     void Ninja::move(Character *other)
     {
         if (this == other || this->isAlive() == false)
@@ -19,6 +22,8 @@ namespace ariel
             this->setLocation(Point::moveTowards(this->getLocation(), other->getLocation(), speed));
         }
     }
+
+    // if the ninja is alive and the enemy is 1 meter away from the ninja,the ninja does 40 dmg
     void Ninja::slash(Character *other)
     {
         if (this == other)
@@ -40,6 +45,8 @@ namespace ariel
     {
         return speed;
     }
+
+    // using the print of character and adding C to the beginning
     string Ninja::print()
     {
         return "N " + Character::print();

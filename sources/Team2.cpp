@@ -6,16 +6,13 @@ using namespace std;
 
 namespace ariel
 {
-    Team2::Team2(Character *leader) : Team(leader) // constructor ,getting a pointer of a leader of the team
+    // constructor ,getting a pointer of a leader of the team
+    Team2::Team2(Character *leader) : Team(leader)
     {
-        // add(leader);
     }
 
-    // Team2::~Team2() // destructor
-    // {
-    // }
-
-    void Team2::attack(Team *Enemy_Team) // attacks other team
+    // the attack function, calls a help function attack_enemy function inorder to attack
+    void Team2::attack(Team *Enemy_Team) 
     {
         if (Enemy_Team == NULL)
         {
@@ -57,6 +54,7 @@ namespace ariel
         }
     }
 
+    // the attack logic funcion, attacks according to the order of the characters in the team
     void Team2::Attack_Enemy(Team *Enemy_Team)
     {
         Character *enemy_to_attack = Closest_To_Leader(Enemy_Team, 0); // get the closet enemy to our leader

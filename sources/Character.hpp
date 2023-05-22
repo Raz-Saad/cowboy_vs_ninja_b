@@ -7,10 +7,11 @@ namespace ariel
 {
     class Character
     {
-        Point location;
-        int HitPoints;
-        string name;
-        bool in_team;
+        Point location;  // the location of the character
+        int HitPoints;   // the HP of the character
+        string name;     // the name of the character
+        bool in_team;    // is the character in a team
+        bool did_action; // did the character make an action in a turn (for SmartTeam)
 
     public:
         Character();                                           // empty constructor
@@ -25,6 +26,8 @@ namespace ariel
         void setLocation(Point location);                      // set a location to the Character
         void setIn_Team(bool flag);                            // set if a Character is in a team or not
         bool getIn_Team();                                     // get if a Character is in a team or not
+        void setDid_action(bool flag);                         // set if a Character did an action in a turn
+        bool getDid_action();                                  // get if a Character did an action in a turn
         virtual string print();                                // prints name,hp,location
 
         // constructors that I use becuase of tidy

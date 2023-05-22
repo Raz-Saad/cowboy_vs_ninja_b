@@ -7,7 +7,8 @@ using namespace std;
 
 namespace ariel
 {
-    Team::Team(Character *leader) // constructor ,getting a pointer of a leader of the team
+    // constructor ,getting a pointer of a leader of the team
+    Team::Team(Character *leader)
     {
         group.fill(nullptr); // initialize array with null
         if (leader->getIn_Team())
@@ -21,7 +22,8 @@ namespace ariel
         }
     }
 
-    Team::~Team() // destructor
+    // destructor
+    Team::~Team()
     {
         for (size_t i = 0; i < amount_of_members; i++)
         {
@@ -35,7 +37,8 @@ namespace ariel
         leader = NULL;
     }
 
-    void Team::add(Character *character) // adds a Charachter to the team
+    // adds a character to the team
+    void Team::add(Character *character)
     {
 
         if (amount_of_members < 10)
@@ -48,10 +51,11 @@ namespace ariel
             {
                 character->setIn_Team(true);
                 group[amount_of_members++] = character;
+
                 if (dynamic_cast<Ninja *>(character))
-                {
-                    is_Ninja_in_Team = true;
-                }
+                    amount_of_ninjas++;
+                else if (dynamic_cast<Cowboy *>(character))
+                    amount_of_cowboys++;
             }
         }
         else
@@ -60,7 +64,8 @@ namespace ariel
         }
     }
 
-    void Team::attack(Team *Enemy_Team) // attacks other team
+    // attacks other team
+    void Team::attack(Team *Enemy_Team)
     {
         if (Enemy_Team == NULL)
         {
@@ -85,7 +90,8 @@ namespace ariel
         }
     }
 
-    int Team::stillAlive() // returns the amount of live Charachter in the team
+    // returns how many members in the gorup are alive
+    int Team::stillAlive()
     {
         int alive_counter = 0; // counts how many charachters in the team are alive
         if (amount_of_members > 0)
@@ -95,10 +101,6 @@ namespace ariel
                 if (group[i]->isAlive())
                     alive_counter++;
             }
-        }
-        else
-        {
-            throw std::runtime_error("there is no charachter in this team yet");
         }
 
         return alive_counter;
@@ -126,7 +128,7 @@ namespace ariel
     }
 
     // returns how many members are in the group at the moment
-    int Team::get_amount_of_members()
+    size_t Team::get_amount_of_members()
     {
         return amount_of_members;
     }
@@ -137,12 +139,14 @@ namespace ariel
         return group;
     }
 
-    Character *Team::Closest_To_Leader(Team *other, int flag) // flag =1 get new leader , flag=0 find closet enemy
+    // return the closest character to the leader. flag =1 get new leader , flag=0 find closet enemy to our leader
+    Character *Team::Closest_To_Leader(Team *other, int flag)
     {
         double min = INT_MAX;
         Character *closet_ch = NULL;
         if (flag)
-        {
+        { // find a new leader to our team
+
             if (other == NULL || other->get_amount_of_members() == 1 || other->stillAlive() == 0)
             {
                 throw std::invalid_argument("invalid input, in change leader function"); /// to fix the text???????
@@ -159,7 +163,7 @@ namespace ariel
             }
         }
         else
-        { // get closet enemy
+        { // get closet enemy to our leader
 
             if (other == NULL || other->get_amount_of_members() == 0 || other->stillAlive() == 0)
             {
@@ -179,6 +183,7 @@ namespace ariel
         return closet_ch;
     }
 
+    // the attack logic funcion, first attack with cowboys then with ninjas
     void Team::Attack_Enemy(Team *Enemy_Team)
     {
         Character *enemy_to_attack = Closest_To_Leader(Enemy_Team, 0); // get the closet enemy to our leader
@@ -238,76 +243,49 @@ namespace ariel
         }
     }
 
+    // return the teams leader
     Character *Team::getLeader()
     {
         return leader;
     }
 
+    // set a leader
     void Team::setLeader(Character *leader)
     {
         this->leader = leader;
     }
 
-    bool Team::getIs_Ninja()
+    // returns how many ninjas are in the group at the moment
+    bool Team::Alive_ninjas()
     {
-        return is_Ninja_in_Team;
-    }
-
-    // return the most low hp member in the group
-    Character *Team::Most_Low_HP(Team *other)
-    {
-
-        if (other == NULL || other->stillAlive() == 0 || other->get_amount_of_members() > 0)
+        if (stillAlive() > 0)
         {
-            throw std::invalid_argument("invalid input");
-        }
-        double min_hp = INT_MAX;
-        Character *lowest_hp = NULL;
-
-        for (size_t i = 0; i < other->get_amount_of_members(); i++)
-        {
-            if ((other->getGroup()[i]->isAlive()) && (other->getGroup()[i]->geHitPoints() < min_hp))
+            for (size_t i = 0; i < get_amount_of_members(); i++)
             {
-                lowest_hp = other->getGroup()[i];
-                min_hp = other->getGroup()[i]->geHitPoints();
-            }
-        }
-
-        return lowest_hp;
-    }
-
-    // return the Closest enemy ninja to our team
-    Character *Team::Closest_Enemy_Ninja(Team *other)
-    {
-        if (other == NULL || other->stillAlive() == 0 || other->get_amount_of_members() > 0)
-        {
-            throw std::invalid_argument("invalid input");
-        }
-
-        double temp_distance; //for holding the current ninja distance
-        double min_distance = INT_MAX;
-        Character *closest_ninja = NULL;
-
-        for (size_t i = 0; i < amount_of_members; i++)
-        {
-            for (size_t j = 0; j < other->get_amount_of_members(); j++)
-            {
-                if (Ninja *ninja = dynamic_cast<Ninja *>(other->getGroup()[j]))
+                if ((dynamic_cast<Ninja *>(getGroup()[i])) && (getGroup()[i]->isAlive()))
                 {
-                    if (ninja->isAlive())
-                    {
-                        temp_distance = this->group[i]->distance(ninja);
-
-                        if (temp_distance < min_distance)
-                        { // if the distance of this current ninja is lower than the previous ninja, update the closet ninja
-                            closest_ninja = ninja;
-                            min_distance = temp_distance;
-                        }
-                    }
+                    return true;
                 }
             }
         }
+        else
+        {
+            return false;
+        }
 
-        return closest_ninja;
+        return false;
     }
+
+    // returns how many cowboys are in the group at the moment
+    size_t Team::get_amount_of_cowboys()
+    {
+        return amount_of_cowboys;
+    }
+
+    // returns how many ninjas are in the group at the moment
+    size_t Team::get_amount_of_ninjas()
+    {
+        return amount_of_ninjas;
+    }
+
 }
