@@ -191,6 +191,7 @@ namespace ariel
         // First all the cowboys attack
         for (size_t i = 0; i < get_amount_of_members(); i++)
         {
+            // checking if the enemy is alive if not change target
             if (enemy_to_attack->isAlive() == false)
             {
                 if (Enemy_Team->stillAlive() > 0)
@@ -218,6 +219,7 @@ namespace ariel
         // Seond all the ninjas attack
         for (size_t i = 0; i < get_amount_of_members(); i++)
         {
+            // checking if the enemy is alive if not change target
             if (enemy_to_attack->isAlive() == false)
             {
                 if (Enemy_Team->stillAlive() > 0)
@@ -275,6 +277,7 @@ namespace ariel
 
         return false;
     }
+
     // return true if we have an alive cowboy in our team
     bool Team::Alive_cowboys()
     {

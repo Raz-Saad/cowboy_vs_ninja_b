@@ -12,7 +12,7 @@ namespace ariel
     }
 
     // the attack function, calls a help function attack_enemy function inorder to attack
-    void Team2::attack(Team *Enemy_Team) 
+    void Team2::attack(Team *Enemy_Team)
     {
         if (Enemy_Team == NULL)
         {
@@ -40,7 +40,7 @@ namespace ariel
 
     void Team2::print()
     {
-        // First print all the cowboys
+        // prints according to the queue in the group
         for (size_t i = 0; i < get_amount_of_members(); i++)
         {
             if (Cowboy *cowboy = dynamic_cast<Cowboy *>(getGroup()[i]))
@@ -59,9 +59,10 @@ namespace ariel
     {
         Character *enemy_to_attack = Closest_To_Leader(Enemy_Team, 0); // get the closet enemy to our leader
 
-        // First all the cowboys attack
+        // attacking according to the queue in the group
         for (size_t i = 0; i < get_amount_of_members(); i++)
         {
+            // checking if the enemy is alive if not change target
             if (enemy_to_attack->isAlive() == false)
             {
                 if (Enemy_Team->stillAlive() > 0)

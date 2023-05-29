@@ -61,7 +61,6 @@ int main()
    cout << "          my demo" << endl;
    cout << "==============================" << endl;
 
-
    //---------------------------------
 
    cout << "Team2 Vs Team" << endl
@@ -70,36 +69,36 @@ int main()
    Cowboy *raz = new Cowboy("Raz", a);
    OldNinja *maor = new OldNinja("Maor", b);
 
-   Team2 N2_team_A(raz);
-   N2_team_A.add(new YoungNinja("Young_S", Point(64, 57)));
-   N2_team_A.add(new TrainedNinja("Trained_S", Point(5, 100)));
-   N2_team_A.add(new OldNinja("Old_S", Point(6.7, 22)));
-   N2_team_A.add(new Cowboy("Cowboy_S", Point(22, 3.5)));
+   Team2 team2(raz);
+   team2.add(new YoungNinja("Young_S", Point(64, 57)));
+   team2.add(new TrainedNinja("Trained_S", Point(5, 100)));
+   team2.add(new OldNinja("Old_S", Point(6.7, 22)));
+   team2.add(new Cowboy("Cowboy_S", Point(22, 3.5)));
 
-   Team N_team_B(maor);
-   N_team_B.add(new TrainedNinja("Trained_N", Point(12, 81)));
-   N_team_B.add(new Cowboy("Cowboy_N1", Point(10, 10)));
-   N_team_B.add(new OldNinja("Old_N", Point(50, 70)));
-   N_team_B.add(new Cowboy("Cowboy_N2", Point(82, 11)));
+   Team team(maor);
+   team.add(new TrainedNinja("Trained_N", Point(12, 81)));
+   team.add(new Cowboy("Cowboy_N1", Point(10, 10)));
+   team.add(new OldNinja("Old_N", Point(50, 70)));
+   team.add(new Cowboy("Cowboy_N2", Point(82, 11)));
 
    cout << "Team2 A:" << endl;
-   N2_team_A.print();
+   team2.print();
    cout << "Team B:" << endl;
-   N_team_B.print();
+   team.print();
    cout << endl;
    int i = 1;
-   while (N2_team_A.stillAlive() > 0 && N_team_B.stillAlive() > 0)
+   while (team2.stillAlive() > 0 && team.stillAlive() > 0)
    {
       try
       {
          cout << "Round " << i << endl;
-         N2_team_A.attack(&N_team_B);
-         N_team_B.attack(&N2_team_A);
+         team2.attack(&team);
+         team.attack(&team2);
 
          cout << "Team A:" << endl;
-         N2_team_A.print();
+         team2.print();
          cout << "Team B:" << endl;
-         N_team_B.print();
+         team.print();
          cout << endl;
          i++;
       }
@@ -109,52 +108,41 @@ int main()
       }
    }
 
-   if (N2_team_A.stillAlive() > 0)
-      cout << "winner is n2_team_A" << endl;
+   if (team2.stillAlive() > 0)
+      cout << "winner is Team2" << endl;
    else
-      cout << "winner is N_team_B" << endl;
+      cout << "winner is Team" << endl;
 
    //---------------------------------
-
-   cout << "SmartTeam Vs Team2" << endl
+   cout << endl;
+   cout << "SmartTeam Vs Team (1 TrainedNinja vs 1 TrainedNinja)" << endl
         << endl;
 
+   TrainedNinja *raz1 = new TrainedNinja("Raz", a);
+   TrainedNinja *Julia = new TrainedNinja("Julia", b);
 
-
-   Cowboy *raz1 = new Cowboy("Raz", a);
-   OldNinja *maor1 = new OldNinja("Maor", b);
-
-   SmartTeam S_team_A(raz1);
-   S_team_A.add(new YoungNinja("Young_S", Point(64, 57)));
-   S_team_A.add(new TrainedNinja("Trained_S", Point(5, 100)));
-   S_team_A.add(new OldNinja("Old_S", Point(6.7, 22)));
-   S_team_A.add(new Cowboy("Cowboy_S", Point(22, 3.5)));
-
-   Team N_team_B1(maor1);
-   N_team_B1.add(new TrainedNinja("Trained_N", Point(12, 81)));
-   N_team_B1.add(new Cowboy("Cowboy_N1", Point(10, 10)));
-   N_team_B1.add(new OldNinja("Old_N", Point(50, 70)));
-   N_team_B1.add(new Cowboy("Cowboy_N2", Point(82, 11)));
-
-   cout << "Team2 A:" << endl;
-   N2_team_A.print();
-   cout << "Team B:" << endl;
-   N_team_B1.print();
+   SmartTeam Smart_Ninja_Team(Julia);
+   Team Normal_Ninja_Team(raz1);
+ 
+   cout << "Normal_Ninja_Team:" << endl;
+   Smart_Ninja_Team.print();
+   cout << "Smart_Ninja_Team:" << endl;
+   Normal_Ninja_Team.print();
    cout << endl;
 
    i = 1;
-   while (S_team_A.stillAlive() > 0 && N_team_B1.stillAlive() > 0)
+   while (Smart_Ninja_Team.stillAlive() > 0 && Normal_Ninja_Team.stillAlive() > 0)
    {
       try
       {
          cout << "Round " << i << endl;
-         S_team_A.attack(&N_team_B1);
-         N_team_B1.attack(&S_team_A);
+         Normal_Ninja_Team.attack(&Smart_Ninja_Team);
+         Smart_Ninja_Team.attack(&Normal_Ninja_Team);
 
-         cout << "Team A:" << endl;
-         S_team_A.print();
-         cout << "Team B:" << endl;
-         N_team_B1.print();
+         cout << "Normal_Ninja_Team:" << endl;
+         Normal_Ninja_Team.print();
+         cout << "Smart_Ninja_Team:" << endl;
+         Smart_Ninja_Team.print();
          cout << endl;
          i++;
       }
@@ -164,10 +152,63 @@ int main()
       }
    }
 
-   if (S_team_A.stillAlive() > 0)
-      cout << "winner is S_team_A" << endl;
+   if (Smart_Ninja_Team.stillAlive() > 0)
+      cout << "winner is Smart_Ninja_Team" << endl;
    else
-      cout << "winner is N_team_B" << endl;
+      cout << "winner is Normal_Ninja_Team" << endl;
+
+   //---------------------------------
+   cout << endl;
+   cout << "Team Vs SmartTeam (5 vs 5)" << endl
+        << endl;
+
+   TrainedNinja *Bob = new TrainedNinja("Bob", a);
+   TrainedNinja *Alice = new TrainedNinja("Alice", b);
+
+   Team Team_Group(Bob);
+   Team_Group.add(new YoungNinja("Young_N", Point(64, 57)));
+   Team_Group.add(new TrainedNinja("Trained_N", Point(5, 100)));
+   Team_Group.add(new OldNinja("Old_N", Point(6.7, 22)));
+   Team_Group.add(new Cowboy("Cowboy_N", Point(22, 3.5)));
+
+   SmartTeam Smart_Group(Alice);
+   Smart_Group.add(new TrainedNinja("Trained_S", Point(12, 81)));
+   Smart_Group.add(new Cowboy("Cowboy_S1", Point(10, 10)));
+   Smart_Group.add(new OldNinja("Old_S", Point(50, 70)));
+   Smart_Group.add(new Cowboy("Cowboy_S2", Point(82, 11)));
+
+   cout << "Normal Team:" << endl;
+   Team_Group.print();
+   cout << "Smart Team:" << endl;
+   Smart_Group.print();
+   cout << endl;
+
+   i = 1;
+   while (Team_Group.stillAlive() > 0 && Smart_Group.stillAlive() > 0)
+   {
+      try
+      {
+         cout << "Round " << i << endl;
+         Team_Group.attack(&Smart_Group);
+         Smart_Group.attack(&Team_Group);
+
+         cout << "Normal Team:" << endl;
+         Team_Group.print();
+         cout << "Smart Team:" << endl;
+         Smart_Group.print();
+         cout << endl;
+         i++;
+      }
+      catch (...)
+      {
+         continue;
+      }
+   }
+
+   if (Smart_Group.stillAlive() > 0)
+      cout << "winner is Smart Team" << endl;
+   else
+      cout << "winner is Normal Team" << endl;
 
    return 0; // no memory issues. Team should free the memory of its members. both a and b teams are on the stack.
 }

@@ -98,7 +98,6 @@ namespace ariel
 
                             enemy_to_attack = Closest_Enemy_To_Character(ninja, Enemy_Team);
                             ninja->setDid_action(true);
-                            cout << ninja->getName() << " attacked " << enemy_to_attack->getName() << endl;
 
                             if (ninja->distance(enemy_to_attack) <= 1)
                             {
@@ -113,6 +112,8 @@ namespace ariel
                                 {
                                     if (ninja->distance(enemy_to_attack) > ninja->getSpeed())
                                     {
+                                        cout << ninja->getName() << " moved towards " << enemy_to_attack->getName() << endl;
+
                                         ninja->move(enemy_to_attack);
                                     }
                                 }
@@ -131,7 +132,7 @@ namespace ariel
             }
         }
         // step 3. the remaining cowboys will attack the closet ninja to
-        // our team or the enemy with the least hp
+        // our team or the enemy with the least hp if all enemies ninjas are dead
         if (Alive_cowboys())
         {
             if (Enemy_Team->Alive_ninjas())
@@ -259,7 +260,7 @@ namespace ariel
         }
     }
 
-    // return the most close character in other team to a specific character
+    // return the closest character in other team to a specific character
     Character *SmartTeam::Closest_Enemy_To_Character(Character *character, Team *other)
     {
         double min_distance = INT_MAX;

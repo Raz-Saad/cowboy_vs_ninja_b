@@ -15,6 +15,6 @@ namespace ariel
         Character *Most_Low_HP(Team *other);                                      // return the most low hp member in the group
         Character *Closest_Enemy_Ninja(Team *other);                              // return the closest enemy ninja to our team
         void Restart_characters_action();                                         // set did_action var to false for all characters in the team
-        Character *Closest_Enemy_To_Character(Character *character, Team *other); // return the most close character in other team to a specific character
+        Character *Closest_Enemy_To_Character(Character *character, Team *other); // return the closet character in other team to a specific character
     };
 }

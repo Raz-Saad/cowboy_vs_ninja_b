@@ -16,8 +16,8 @@ namespace ariel
         double distance(Point other);                               // calcute the distance between two points
         string print();                                             // prints (x,y)
         static Point moveTowards(Point src, Point dst, double dis); // move to dst the range of dis and if dis is greater than the distance between src and dst than return dst
-        double getX(); // returns x_p
-        double getY(); // return y_p
+        double getX();                                              // returns x_p
+        double getY();                                              // return y_p
     };
 
 }
