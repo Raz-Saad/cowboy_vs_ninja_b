@@ -275,6 +275,26 @@ namespace ariel
 
         return false;
     }
+    // return true if we have an alive cowboy in our team
+    bool Team::Alive_cowboys()
+    {
+        if (stillAlive() > 0)
+        {
+            for (size_t i = 0; i < get_amount_of_members(); i++)
+            {
+                if ((dynamic_cast<Cowboy *>(getGroup()[i])) && (getGroup()[i]->isAlive()))
+                {
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            return false;
+        }
+
+        return false;
+    }
 
     // returns how many cowboys are in the group at the moment
     size_t Team::get_amount_of_cowboys()
